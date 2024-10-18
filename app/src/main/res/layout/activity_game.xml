@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <!-- Welcome User TextView -->
+    <TextView
+        android:id="@+id/welcomeUserTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Input for word guessing -->
+    <EditText
+        android:id="@+id/guessEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your guess"
+        android:inputType="text"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Button to submit guess -->
+    <Button
+        android:id="@+id/submitGuessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Guess"
+        android:layout_marginBottom="16dp" />
+
+    <!-- TextView to display feedback (whether guess is correct or not) -->
+    <TextView
+        android:id="@+id/feedbackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback will appear here"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp" />
+
+    <!-- TextView for showing the remaining score -->
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 100"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp" />
+
+    <!-- TextView to show how many attempts remain -->
+    <TextView
+        android:id="@+id/attemptsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attempts Left: 10"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Hint button to get help (occurrence of a letter) -->
+    <Button
+        android:id="@+id/hintButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get a Hint"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Timer to show how long the user has taken -->
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time: 00:00"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <!-- Letter Occurrence Section -->
+    <EditText
+        android:id="@+id/letterEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter a letter"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/checkLetterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Occurrence" />
+
+    <TextView
+        android:id="@+id/letterOccurrenceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Letter Occurrence Result" />
+
+    <!-- Clue Section -->
+    <Button
+        android:id="@+id/requestClueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Clue"
+        android:visibility="gone" /> <!-- Hidden initially -->
+
+    <TextView
+        android:id="@+id/clueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clue will be displayed here."
+        android:visibility="gone" />
+    <!-- Hidden initially -->
+
+    <Button
+        android:id="@+id/newGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Game"
+        android:visibility="gone" />
+
+
+</LinearLayout>
+
