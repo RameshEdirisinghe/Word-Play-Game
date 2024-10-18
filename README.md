@@ -22,3 +22,6 @@ To run the Word Guessing Game on your device, clone this repository and import i
 
 <h3>Contributing</h3>
 Contributions are welcome! If you'd like to enhance the game or fix bugs, feel free to fork the repository and submit a pull request.
+
+
+![logo](https://github.com/user-attachments/assets/e04c6ace-9ca2-4256-bb9d-19e7558a9ea2)
