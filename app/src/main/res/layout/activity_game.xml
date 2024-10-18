@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bgapp"
     android:gravity="center"
     android:padding="16dp">
 
@@ -17,6 +19,12 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Input for word guessing -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="209dp"
+        android:layout_height="66dp"
+        app:srcCompat="@drawable/header_img" />
+
     <EditText
         android:id="@+id/guessEditText"
         android:layout_width="match_parent"
@@ -44,43 +52,46 @@
         android:layout_marginBottom="16dp" />
 
     <!-- TextView for showing the remaining score -->
+
+    <!-- TextView to show how many attempts remain -->
+
+    <!-- Hint button to get help (occurrence of a letter) -->
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="Score: 100"
-        android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp" />
 
-    <!-- TextView to show how many attempts remain -->
     <TextView
         android:id="@+id/attemptsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="Attempts Left: 10"
-        android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp" />
+        android:textSize="16sp" />
 
-    <!-- Hint button to get help (occurrence of a letter) -->
+    <!-- Timer to show how long the user has taken -->
+
+    <!-- Letter Occurrence Section -->
     <Button
         android:id="@+id/hintButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get a Hint"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:text="Get a Hint" />
 
-    <!-- Timer to show how long the user has taken -->
     <TextView
         android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Time: 00:00"
-        android:textSize="16sp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
-    <!-- Letter Occurrence Section -->
     <EditText
         android:id="@+id/letterEditText"
         android:layout_width="wrap_content"
@@ -100,29 +111,34 @@
         android:layout_height="wrap_content"
         android:text="Letter Occurrence Result" />
 
-    <!-- Clue Section -->
     <Button
         android:id="@+id/requestClueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get Clue"
-        android:visibility="gone" /> <!-- Hidden initially -->
+         />
 
     <TextView
         android:id="@+id/clueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clue will be displayed here."
-        android:visibility="gone" />
-    <!-- Hidden initially -->
+        />
 
     <Button
         android:id="@+id/newGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Game"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/tryAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try Again"
+        />
 
 </LinearLayout>
 

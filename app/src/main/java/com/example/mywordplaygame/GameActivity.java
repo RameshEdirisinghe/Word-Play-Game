@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView clueTextView;
     private CountDownTimer countDownTimer;
     private Button newGameButton;
+    private Button tryAgainButton;
     // Game state variables
     private String randomWord;
     private int score = 100;
@@ -55,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
         hintButton = findViewById(R.id.hintButton);
         timerTextView = findViewById(R.id.timerTextView);
         newGameButton = findViewById(R.id.newGameButton);
+        tryAgainButton = findViewById(R.id.tryAgainButton);
 
         // Set initial values for score and attempts
         scoreTextView.setText("Score: " + score);
@@ -65,14 +67,13 @@ public class GameActivity extends AppCompatActivity {
         WordApiService apiService = Apiclient.getRetrofitClient().create(WordApiService.class);
 
         // Call the API to get a random word
-        Call<String> call = apiService.getRandomWord();
-        call.enqueue(new Callback<String>() {
+        Call<List<String>> call = apiService.getRandomWord();
+        call.enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful()) {
-                    randomWord = response.body();
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    randomWord = response.body().get(0); // Get the first word
                     Log.d("API_RESPONSE", "Random word: " + randomWord);
-                    // You can show the length of the word to the player here
                     feedbackTextView.setText("Guess the word! It has " + randomWord.length() + " letters.");
                 } else {
                     Log.e("API_ERROR", "Failed to fetch word");
@@ -80,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.e("API_FAILURE", "API call failed: " + t.getMessage());
             }
         });
@@ -135,14 +136,26 @@ public class GameActivity extends AppCompatActivity {
 
         startTimer();
     }
+    public void onFinish() {
+        feedbackTextView.setText("Time's up! The word was: " + randomWord);
+        submitGuessButton.setEnabled(false);
+        showTryAgainButton();  // Show the try again button
+    }
+    private void showTryAgainButton() {
+        tryAgainButton.setVisibility(View.VISIBLE); // Make the button visible
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetGame(); // Restart the game when the button is clicked
+            }
+        });
+    }
     private void checkGuess(String guess) {
         if (attemptsLeft > 0) {
             if (guess.equalsIgnoreCase(randomWord)) {
                 feedbackTextView.setText("Congratulations! You've guessed the word correctly.");
-                // Optionally, reset the game
                 submitGuessButton.setEnabled(false);
-                // Show a new game button
-                showNewGameButton();
+                showTryAgainButton();
             } else {
                 attemptsLeft--;
                 score -= 10;
@@ -150,12 +163,10 @@ public class GameActivity extends AppCompatActivity {
                 scoreTextView.setText("Score: " + score);
                 attemptsTextView.setText("Attempts Left: " + attemptsLeft);
 
-                if (attemptsLeft == 0) {
+                if (attemptsLeft == 0 || score <= 0) {
                     feedbackTextView.setText("Game over! The word was: " + randomWord);
-                    // Disable input
                     submitGuessButton.setEnabled(false);
-                    // Show a new game button
-                    showNewGameButton();
+                    showTryAgainButton();
                 }
             }
         }
@@ -184,20 +195,22 @@ public class GameActivity extends AppCompatActivity {
         clueTextView.setText("");
         letterOccurrenceTextView.setText("");
         newGameButton.setVisibility(View.GONE);
+        submitGuessButton.setEnabled(true);
+        tryAgainButton.setVisibility(View.GONE);
         // Restart timer and get a new word
         startTimer();
-        getRandomWord(); // You might need to implement this method to get a new random word
+        getRandomWord();
+        startTimer();// You might need to implement this method to get a new random word
     }
 
     private void getRandomWord() {
-        // Your existing code to fetch a new random word
         WordApiService apiService = Apiclient.getRetrofitClient().create(WordApiService.class);
-        Call<String> call = apiService.getRandomWord();
-        call.enqueue(new Callback<String>() {
+        Call<List<String>> call = apiService.getRandomWord();
+        call.enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful()) {
-                    randomWord = response.body();
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    randomWord = response.body().get(0); // Get the first word from the list
                     Log.d("API_RESPONSE", "Random word: " + randomWord);
                     feedbackTextView.setText("Guess the word! It has " + randomWord.length() + " letters.");
                 } else {
@@ -206,7 +219,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.e("API_FAILURE", "API call failed: " + t.getMessage());
             }
         });
@@ -235,23 +248,18 @@ public class GameActivity extends AppCompatActivity {
 
     private void provideClue() {
         if (attemptsLeft <= 5 && score >= 5) {
-            // Call the API to get a rhyming word or similar word (e.g., using Rhyme API)
             WordApiService apiService = Apiclient.getRetrofitClient().create(WordApiService.class);
-            Call<List<String>> call = apiService.getRhymeWord(randomWord);// Example API call for rhymes
-
+            Call<List<String>> call = apiService.getRhymeWord(randomWord);
             call.enqueue(new Callback<List<String>>() {
                 @Override
                 public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                    if (response.isSuccessful()) {
-                        List<String> rhymes = response.body();
-                        if (rhymes != null && !rhymes.isEmpty()) {
-                            clueTextView.setVisibility(View.VISIBLE);
-                            clueTextView.setText("Clue: A word that rhymes with the secret word is '" + rhymes.get(0) + "'");
-                            score -= 5;
-                            scoreTextView.setText("Score: " + score);
-                        } else {
-                            clueTextView.setText("No rhyming word found.");
-                        }
+                    if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                        String rhyme = response.body().get(0);
+                        clueTextView.setText("Clue: A word that rhymes with the secret word is '" + rhyme + "'");
+                        score -= 5;
+                        scoreTextView.setText("Score: " + score);
+                    } else {
+                        clueTextView.setText("No rhyming word found.");
                     }
                 }
 
@@ -282,7 +290,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-   
+
 
     // Method to provide a hint (can deduct score points)
     private void provideHint() {
