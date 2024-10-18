@@ -30,5 +30,8 @@ Contributions are welcome! If you'd like to enhance the game or fix bugs, feel f
 ![image alt](https://github.com/RameshEdirisinghe/Word-Play-Game/blob/master/Screenshot%202024-10-19%20033546.png?raw=true)
 </div>
 <br>
+<br>
+
+![image alt](https://github.com/RameshEdirisinghe/Word-Play-Game/blob/master/Screenshot%202024-10-19%20033511.png?raw=true)
 
 
