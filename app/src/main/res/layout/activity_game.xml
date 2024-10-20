@@ -51,7 +51,11 @@
         android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
 
+    <!-- TextView for showing the remaining score -->
 
+    <!-- TextView to show how many attempts remain -->
+
+    <!-- Hint button to get help (occurrence of a letter) -->
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
@@ -70,8 +74,9 @@
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
+    <!-- Timer to show how long the user has taken -->
 
-
+    <!-- Letter Occurrence Section -->
     <Button
         android:id="@+id/hintButton"
         android:layout_width="wrap_content"
@@ -124,7 +129,8 @@
         android:id="@+id/newGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Game"/>
+        android:text="New Game"
+        android:visibility="gone"/>
 
     <Button
         android:layout_gravity="center"
@@ -132,8 +138,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Try Again"
-        android:visibility="gone"/> 
-         <!-- new game restart -->
+        android:visibility="gone"/>
 
 </LinearLayout>
+
+
 
